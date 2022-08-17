@@ -16,6 +16,7 @@ def my_controller(observation, action_space, is_act_continuous=True):
     for i in range(len(action_space)):
         action_ = sample_single_dim(action_space[i], is_act_continuous)
         agent_action.append(action_)
+    #print(agent_action)
     return agent_action
 
 
