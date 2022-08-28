@@ -16,6 +16,7 @@ def my_controller(observation, action_space, is_act_continuous=True):
     for i in range(len(action_space)):
         action_ = sample_single_dim(action_space[i], is_act_continuous)
         agent_action.append(action_)
+    #print((agent_action))
     return agent_action
 
 
@@ -43,4 +44,5 @@ def sample_single_dim(action_space_list_each, is_act_continuous):
             each = action_space_list_each.sample()
         elif action_space_list_each.__class__.__name__ == "Box":
             each = action_space_list_each.sample()
+    #print(type(each))
     return each

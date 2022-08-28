@@ -138,6 +138,7 @@ def run_game(g, env_name, multi_part_agent_ids, actions_spaces, policy_list, ren
         info_dict = {}
         info_dict["time"] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         joint_act = get_joint_action_eval(g, multi_part_agent_ids, policy_list, actions_spaces, all_observes)
+        #print(joint_act)
         all_observes, reward, done, info_before, info_after = g.step(joint_act)
         if env_name.split("-")[0] in ["magent"]:
             info_dict["joint_action"] = g.decode(joint_act)
@@ -167,13 +168,15 @@ def get_valid_agents():
 if __name__ == "__main__":
 
     env_type = "classic_Pendulum-v0"
+    #env_type = "Pendulum-v0"
     game = make(env_type)
 
     # 针对"classic_"环境，使用gym core 进行render;
     # 非"classic_"环境，使用replay工具包的replay.html，通过上传.json进行网页回放
     render_mode = True
 
-    policy_list = ["random"] * len(game.agent_nums)
+    policy_list = ["submission"] * len(game.agent_nums)
+    #policy_list = ["random"] * len(game.agent_nums)
     # To test submission, set policy_list as below
     # policy_list = ["submission"] * len(game.agent_nums) or
     # policy_list = ["folder1_under_examples", "folder2_under_examples"]

@@ -1,6 +1,6 @@
 # -*- coding:utf-8  -*-
-# Time  : 2022/8/10 下午4:14
-# Author: Yahui Cui
+# Time  : 2022/8/28 下午20:23
+# Author: observer
 
 """
 # =================================== Important =========================================
@@ -9,16 +9,28 @@ Notes:
 2. if you want to load .pth file, please follow the instruction here:
 https://github.com/jidiai/ai_lib/blob/master/examples/demo
 """
+import os
+import pickle
+import numpy as np
+import torch
 
-
+tar = -2.0
 def my_controller(observation, action_space, is_act_continuous=True):
     agent_action = []
+    state = observation['obs']
+    gap = state - tar
+    if gap > 10.0:
+        gap = 10.0
+    if gap < 0:
+        gap = 0
     for i in range(len(action_space)):
-        action_ = sample_single_dim(action_space[i], is_act_continuous)
-        agent_action.append(action_)
+        action_ = [gap]
+        agent_action.append(np.float32(action_))
+        #print(action_)
+    print(agent_action)
     return agent_action
 
-
+"""
 def sample_single_dim(action_space_list_each, is_act_continuous):
     each = []
     if is_act_continuous:
@@ -44,3 +56,4 @@ def sample_single_dim(action_space_list_each, is_act_continuous):
         elif action_space_list_each.__class__.__name__ == "Box":
             each = action_space_list_each.sample()
     return each
+"""
